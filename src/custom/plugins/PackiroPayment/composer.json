@@ -1,0 +1,32 @@
+{
+  "name": "packiro/payment",
+  "description": "Extends payment functionality",
+  "type": "shopware-platform-plugin",
+  "version": "v1.0.0",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Packiro GmbH"
+    }
+  ],
+  "require": {
+    "shopware/core": "6.4.*"
+  },
+  "extra": {
+    "shopware-plugin-class": "Packiro\\Payment\\PackiroPayment",
+    "label": {
+      "de-DE": "Packiro Payment",
+      "en-GB": "Packiro Payment"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Packiro\\Payment\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Packiro\\Payment\\Tests\\": "tests/"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+<div v-if="items" class="pc-pro-lib-item-order" style="height: 480px">
+    <sw-entity-listing
+            v-if="entitySearchable"
+            :items="items"
+            :repository="repository"
+            :showSelection="true"
+            :columns="columns"
+            :is-loading="isLoading"
+            :criteria-limit="limit"
+            :sort-by="currentSortBy"
+            :sort-direction="sortDirection"
+            :disable-data-fetching="true"
+            @page-change="onPageChange"
+            @column-sort="onSortColumn"
+    >
+        <template #column-proLibItem.proLibGroup.name="{ item, isInlineEdit }">
+            <template v-if="isInlineEdit">
+                <sw-entity-single-select
+                        entity="pc_pro_lib_item"
+                        v-model="item.proLibItemId"
+                        :criteria="getProLibItemSearchCriteria(item.productId)"
+                />
+            </template>
+            <template v-else-if="item.proLibItem">
+                <router-link :to="{ name: 'pc.pro.lib.item.detail', params: { id: item.proLibItemId } }">
+                    {{ item.proLibItem.name }}
+                </router-link>
+            </template>
+        </template>
+
+        <template #column-order.orderNumber="{ item }">
+            <template v-if="item.order">
+                <router-link :to="{ name: 'sw.order.detail', params: { id: item.orderId } }">
+                    {{ item.order.orderNumber }}
+                </router-link>
+            </template>
+        </template>
+
+        <template #column-product.productNumber="{ item }">
+            <router-link
+                    v-if="item.product"
+                    :to="{ name: 'sw.product.detail', params: { id: item.productId } }"
+            >
+                {{ item.product.productNumber }}
+            </router-link>
+        </template>
+
+        <template #more-actions="{ item }">
+            <sw-external-link
+                    class="sw-context-menu-item"
+                    v-if="item.proLibItem"
+                    target="_blank"
+                    rel="noopener"
+                    :href="getUDashUrl(item)"
+            >
+                Utility Dashboard
+            </sw-external-link>
+        </template>
+    </sw-entity-listing>
+</div>

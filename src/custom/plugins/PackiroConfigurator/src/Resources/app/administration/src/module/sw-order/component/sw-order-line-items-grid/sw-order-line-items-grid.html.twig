@@ -1,0 +1,57 @@
+{% block sw_order_line_items_grid_column_payload_options_link %}
+    {% parent %}
+
+    <template v-if="item.payload && item.payload.sizeHeight">
+        <div class="sw-order-line-items-grid__item-label">
+            {{ $tc('sw-order.detailBase.customSize') }}
+            {{ item.payload.sizeHeight }}/{{ item.payload.sizeWidth }}/{{ item.payload.sizeDepth }}
+        </div>
+    </template>
+
+    <template v-else></template>
+{% endblock %}
+
+ {% block sw_order_line_items_grid_grid_columns_unit_price %}
+     <template #column-unitPrice="{ item, isInlineEdit }">
+
+         {% block sw_order_line_items_grid_grid_columns_unit_price_inline_edit %}
+             <sw-number-field
+                     v-if="isInlineEdit && !itemCreatedFromProduct(item.id) && !isPouchBundle(item)"
+                     v-model="item.priceDefinition.price"
+                     placeholder="0"
+                     size="small"
+                     :min="getMinItemPrice(item.id)"
+                     @change="checkItemPrice($event, item)"
+             />
+         {% endblock %}
+
+         {% block sw_order_line_items_grid_grid_columns_unit_price_content %}
+             <span v-else>{{ getProductItem(item).unitPrice | currency(order.currency.shortName) }}</span>
+         {% endblock %}
+
+     </template>
+ {% endblock %}
+
+{% block sw_order_line_items_grid_grid_columns_quantity %}
+    <template #column-quantity="{ item, isInlineEdit }">
+
+        {% block sw_order_line_items_grid_grid_columns_quantity_inline_edit %}
+            <sw-number-field
+                    v-if="isInlineEdit && !isCreditItem(item.id) && !isPouchBundle(item)"
+                    v-model="item.quantity"
+                    number-type="int"
+                    :min="1"
+                    size="small"
+                    placeholder="0"
+                    @change="updateItemQuantity(item)"
+            />
+        {% endblock %}
+
+        {% block sw_order_line_items_grid_grid_columns_quantity_content %}
+            <span v-else>
+                {{ getProductItem(item).quantity }} x
+            </span>
+        {% endblock %}
+
+    </template>
+{% endblock %}

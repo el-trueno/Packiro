@@ -1,0 +1,52 @@
+{% sw_extends '@Storefront/storefront/component/listing/filter-panel.html.twig' %}
+
+{% block component_filter_panel_item_manufacturer %}
+    {% if listing.aggregations %}
+        {% set countries = listing.aggregations.get('country') %}
+        {% if countries and not countries.entities is empty %}
+            {% set countriesSorted = countries.entities|sort((a, b) => a.translated.name|lower > b.translated.name|lower) %}
+
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                elements: countriesSorted,
+                sidebar: sidebar,
+                name: 'country',
+                displayName: 'moorl-foundation.listing.filter.country'|trans
+            } %}
+        {% endif %}
+
+        {% set tags = listing.aggregations.get('tag') %}
+        {% if tags and not tags.entities is empty %}
+            {% set tagsSorted = tags.entities|sort((a, b) => a.name|lower <=> b.name|lower) %}
+
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                elements: tagsSorted,
+                sidebar: sidebar,
+                name: 'tag',
+                displayName: 'moorl-foundation.listing.filter.tags'|trans
+            } %}
+        {% endif %}
+
+        {% set firstChar = listing.aggregations.get('first-char') %}
+        {% if firstChar and not firstChar.entities is empty %}
+            {% set firstChars = [] %}
+            {% for singleChar in 'A'..'Z' %}
+                {% set firstChars = firstChars|merge([{
+                    name: singleChar,
+                    id: singleChar,
+                    translated: {
+                        name: singleChar
+                    }
+                }]) %}
+            {% endfor %}
+
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-property-select.html.twig' with {
+                elements: firstChars,
+                sidebar: sidebar,
+                name: 'first-char',
+                displayName: 'moorl-foundation.listing.filter.firstChar'|trans
+            } %}
+        {% endif %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}

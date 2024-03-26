@@ -1,0 +1,47 @@
+<sw-page class="pc-accessory-group-list">
+    <template #search-bar>
+        <sw-search-bar
+                initial-search-type="pc_accessory_group"
+                :initial-search="term"
+                @search="onSearch"
+        />
+    </template>
+
+    <template slot="smart-bar-header">
+        <h2>
+            {{ $tc('pc-accessory-group.general.title') }}
+        </h2>
+    </template>
+
+    <template slot="smart-bar-actions">
+        <sw-button variant="primary" :routerLink="{ name: 'pc.accessory.group.create' }">
+            {{ $tc('pc-accessory-group.buttons.newButtonText') }}
+        </sw-button>
+    </template>
+
+    <template #language-switch>
+        <sw-language-switch @on-change="changeLanguage"/>
+    </template>
+
+    <template slot="content">
+        <sw-entity-listing
+                v-if="entitySearchable"
+                detailRoute="pc.accessory.group.detail"
+                :items="items"
+                :repository="repository"
+                :showSelection="true"
+                :columns="columns"
+                :is-loading="isLoading"
+                :criteria-limit="limit"
+                :sort-by="currentSortBy"
+                :sort-direction="sortDirection"
+                :disable-data-fetching="true"
+                @page-change="onPageChange"
+                @column-sort="onSortColumn"
+        >
+            <template #preview-name="{ item }">
+                <sw-media-preview-v2 :source="item.media"></sw-media-preview-v2>
+            </template>
+        </sw-entity-listing>
+    </template>
+</sw-page>

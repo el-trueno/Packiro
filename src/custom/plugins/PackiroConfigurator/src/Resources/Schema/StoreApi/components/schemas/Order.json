@@ -1,0 +1,29 @@
+{
+  "openapi": "3.0.0",
+  "info": [],
+  "paths": [],
+  "components": {
+    "schemas": {
+      "Product": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/Order"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "extensions": {
+                "type": "object",
+                "properties": {
+                  "proLibItemOrders": {
+                    "$ref": "#\/components\/schemas\/PcProLibItemOrder"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

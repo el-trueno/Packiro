@@ -1,0 +1,126 @@
+<sw-page class="pc-accessory-option-detail">
+    <template slot="smart-bar-back">
+        <router-link
+                class="smart-bar__back-btn"
+                :to="{ name: 'pc.accessory.group.detail', params: { id: item.accessoryGroupId } }"
+        >
+            <sw-icon
+                    name="regular-chevron-left"
+                    small
+            />
+        </router-link>
+    </template>
+
+    <template slot="smart-bar-header">
+        <h2>{{ item.accessoryGroup.name }} | {{ item.name }}</h2>
+    </template>
+
+    <template slot="smart-bar-actions">
+        <sw-button :routerLink="{ name: 'pc.accessory.option.list' }">
+            {{ $tc('pc-accessory-option.buttons.cancelButtonText') }}
+        </sw-button>
+
+        <sw-button-process
+                :isLoading="isLoading"
+                :processSuccess="processSuccess"
+                variant="primary"
+                @process-finish="saveFinish"
+                @click="onClickSave">
+            {{ $tc('pc-accessory-option.buttons.saveButtonText') }}
+        </sw-button-process>
+    </template>
+
+    <template #language-switch>
+        <sw-language-switch
+                slot="language-switch"
+                :disabled="item && item.isNew()"
+                @on-change="onChangeLanguage"
+        />
+    </template>
+
+    <template slot="content">
+        <sw-card-view v-if="item">
+            {% block accessory_option_detail_content %}
+                <pc-accessory-form :item="item">
+                    <template slot="settings">
+                        <sw-field type="switch" bordered
+                                  :label="$tc('pc-accessory-option.properties.preSelected')"
+                                  v-model="item.preSelected"/>
+
+                        <sw-field type="number"
+                                  :label="$tc('pc-accessory-option.properties.deliveryDays')"
+                                  v-model="item.deliveryDays"/>
+
+                        <sw-field type="number"
+                                  :label="$tc('pc-accessory-option.properties.minDeliveryDays')"
+                                  v-model="item.minDeliveryDays"/>
+
+                        <sw-field type="number"
+                                  :label="$tc('pc-accessory-option.properties.maxDeliveryDays')"
+                                  v-model="item.maxDeliveryDays"/>
+
+                        <sw-field type="number"
+                                  :label="$tc('pc-accessory-option.properties.minQuantity')"
+                                  v-model="item.minQuantity"/>
+
+                        <sw-field type="number"
+                                  :label="$tc('pc-accessory-option.properties.maxQuantity')"
+                                  v-model="item.maxQuantity"/>
+
+                        <sw-entity-multi-id-select
+                                :repository="repository"
+                                :criteria="accessoryCriteria"
+                                :label="$tc('pc-accessory-option.properties.provided')"
+                                v-model="item.provided"
+                        >
+                            <template #selection-label-property="{ item, index, labelProperty, valueProperty }">
+                                {{ item.accessoryGroup.translated.name }} | {{ item.translated.name }}
+                            </template>
+
+                            <template #result-label-property="{ item, index }">
+                                {{ item.accessoryGroup.translated.name }} | {{ item.translated.name }}
+                            </template>
+                        </sw-entity-multi-id-select>
+
+                        <sw-entity-many-to-many-select
+                                :localMode="true"
+                                :label="$tc('pc-accessory-option.properties.mainProducts')"
+                                v-model="item.mainProducts"
+                                :context="searchContext"
+                                :criteria="searchCriteria"
+                        >
+                            <template #selection-label-property="{ item, index, labelProperty, valueProperty }">
+                                <sw-product-variant-info :variations="item.variation">
+                                    {{ item.translated.name }}
+                                </sw-product-variant-info>
+                            </template>
+
+                            <template #result-label-property="{ item, index }">
+                                <sw-product-variant-info :variations="item.variation">
+                                    {{ item.translated.name }}
+                                </sw-product-variant-info>
+                            </template>
+                        </sw-entity-many-to-many-select>
+                    </template>
+                </pc-accessory-form>
+            {% endblock %}
+
+            <sw-card :isLoading="isLoading"
+                     :title="$tc('pc-accessory-option.cards.price')">
+                <sw-entity-single-select
+                        :label="$tc('pc-accessory-option.properties.tax')"
+                        v-model="item.taxId"
+                        entity="tax"
+                />
+
+                <sw-price-field
+                        v-if="item && item.tax"
+                        required
+                        :price="item.price"
+                        :tax-rate="item.tax"
+                        :currency="defaultCurrency"
+                />
+            </sw-card>
+        </sw-card-view>
+    </template>
+</sw-page>

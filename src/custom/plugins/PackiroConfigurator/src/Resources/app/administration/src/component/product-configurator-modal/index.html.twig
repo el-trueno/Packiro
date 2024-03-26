@@ -1,0 +1,152 @@
+<sw-modal
+        class="pc-product-configurator-modal"
+        :title="$tc('sw-order.detailBase.showProductConfiguratorModal')"
+        :closable="false"
+>
+    <sw-entity-single-select
+            entity="product"
+            :context="searchContext"
+            :criteria="searchCriteria"
+            :label="$tc('pc-product-configurator-modal.properties.selectedVariant')"
+            v-model="selectedVariantId"
+            :displayVariants="true"
+            @change="onChange"
+    />
+
+    <template v-if="salesChannelProduct">
+        <sw-container columns="200px 1fr" gap="0 10px">
+            <img class="img-fluid" v-if="salesChannelProduct.cover" :src="salesChannelProduct.cover.media.url">
+            <div>
+                <sw-field
+                        type="switch"
+                        bordered
+                        :label="$tc('pc-product-configurator-modal.properties.hasCustomPrice')"
+                        v-model="payload.hasCustomPrice"
+                />
+
+                <table v-if="!payload.hasCustomPrice" class="table">
+                    <tr>
+                        <th>
+                            {{ $tc('pc-product-configurator-modal.properties.quantity') }}
+                        </th>
+                        <th>
+                            {{ $tc('pc-product-configurator-modal.properties.unitPrice') }}
+                        </th>
+                    </tr>
+                    <tr v-for="calculatedPrice in salesChannelProduct.calculatedPrices">
+                        <td>
+                            {{ calculatedPrice.quantity }}
+                        </td>
+                        <td>
+                            {{ calculatedPrice.unitPrice | currency(currency.isoCode) }}
+                        </td>
+                    </tr>
+                </table>
+
+                <sw-number-field
+                        v-else-if="payload.hasCustomPrice"
+                        :label="$tc('pc-product-configurator-modal.properties.hasCustomPrice')"
+                        v-model="payload.customUnitPrice"
+                        numberType="float"
+                        :digits="4"
+                />
+
+                <sw-number-field
+                        :label="$tc('pc-product-configurator-modal.properties.quantity')"
+                        v-model="payload.quantity"
+                        numberType="int"
+                />
+
+                <template v-if="isCustomSize">
+                    <sw-container columns="1fr 1fr 1fr" gap="0 10px">
+                        <sw-number-field
+                                :label="$tc('pc-product-configurator-modal.properties.sizeHeight')"
+                                :placeholder="$tc('pc-product-configurator-modal.properties.mm')"
+                                v-model="payload.sizeHeight"
+                        />
+
+                        <sw-number-field
+                                :label="$tc('pc-product-configurator-modal.properties.sizeWidth')"
+                                :placeholder="$tc('pc-product-configurator-modal.properties.mm')"
+                                v-model="payload.sizeWidth"
+                        />
+
+                        <sw-number-field
+                                :label="$tc('pc-product-configurator-modal.properties.sizeDepth')"
+                                :placeholder="$tc('pc-product-configurator-modal.properties.mm')"
+                                v-model="payload.sizeDepth"
+                        />
+                    </sw-container>
+                </template>
+            </div>
+        </sw-container>
+
+        <template v-for="accessoryGroup in salesChannelProduct.extensions.accessoryGroups">
+            <div v-if="accessoryGroup.active" class="accessory-group">
+                <div>
+                    {{ accessoryGroup.translated.name }}
+                    <sw-help-text :text="accessoryGroup.technicalName"/>
+                </div>
+
+                <ul class="accessory-options">
+                    <li v-for="accessoryOption in accessoryGroup.accessoryOptions">
+                        <div>
+                            {{ accessoryOption.translated.name }}
+                            <sw-help-text
+                                    v-if="accessoryOption.translated.shortDescription"
+                                    :text="accessoryOption.translated.shortDescription"
+                            />
+                        </div>
+
+                        <img v-if="accessoryOption.media" :src="accessoryOption.media.url">
+
+                        <div>
+                            {{ accessoryOption.calculatedPrice.unitPrice | currency(currency.isoCode) }}
+                        </div>
+
+                        <template v-if="accessoryGroup.multipleSelection">
+                            <input
+                                    v-model="payload.accessoryOptions[accessoryOption.id].selected"
+                                    type="checkbox"
+                                    @change="updatePayload"
+                            >
+                        </template>
+
+                        <template v-else>
+                            <input
+                                    v-model="payload.accessoryOptions[accessoryOption.id].selected"
+                                    type="checkbox"
+                                    @change="updateCheckboxGroup(accessoryGroup.id, accessoryOption.id)"
+                            >
+
+                            <template v-if="accessoryGroup.technicalName === 'ARTWORKS'">
+                                <input
+                                        v-model="payload.accessoryOptions[accessoryOption.id].quantity"
+                                        type="number"
+                                >
+                            </template>
+                        </template>
+                    </li>
+                </ul>
+            </div>
+        </template>
+    </template>
+
+    <template #modal-footer>
+        <sw-button
+                size="small"
+                @click="onClose"
+        >
+            {{ $tc('sw-order.buttons.cancel') }}
+        </sw-button>
+
+        <sw-button variant="primary"
+                   size="small"
+                   @click="onClickAddToCart"
+                   :disabled="!salesChannelProduct"
+                   :isLoading="isLoading"
+        >
+            {{ $tc('sw-order.buttons.confirm') }}
+        </sw-button>
+    </template>
+</sw-modal>

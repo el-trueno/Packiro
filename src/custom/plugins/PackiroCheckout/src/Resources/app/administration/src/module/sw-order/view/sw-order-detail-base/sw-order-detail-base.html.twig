@@ -1,0 +1,14 @@
+{% block sw_order_detail_base_leave_page_modal %}
+    <sw-card
+            v-if="order"
+            :isLoading="isLoading"
+            :title="$tc('packiro-checkout.splitOrder.cardTitle')"
+            class="pc-no-padding"
+    >
+        <packiro-checkout-split-order-list
+                :currentOrder="order"
+        />
+    </sw-card>
+
+    {% parent %}
+{% endblock %}

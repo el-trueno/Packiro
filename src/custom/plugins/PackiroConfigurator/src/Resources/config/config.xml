@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Settings</title>
+
+        <input-field type="text">
+            <name>uDashBaseUrl</name>
+            <label>Utility Dashboard Base URL. {artworkId} will be replaced by a real artwork Id</label>
+        </input-field>
+
+        <input-field type="int">
+            <name>maxQtyForCheapestPriceCalculation</name>
+            <label>Max product qty for the product cheapest price calculation</label>
+            <defaultValue>20000</defaultValue>
+        </input-field>
+
+    </card>
+</config>

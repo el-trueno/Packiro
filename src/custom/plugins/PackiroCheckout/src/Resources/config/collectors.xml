@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="Packiro\Checkout\Collector\SplitPromotionCollector">
+            <argument type="service" id="Packiro\Checkout\Service\Cart\CartService"/>
+
+            <tag name="shopware.cart.collector" priority="-100"/>
+        </service>
+
+        <service id="Packiro\Checkout\Collector\ShippingCostsCollector">
+            <argument type="service" id="Packiro\Checkout\Service\Cart\CartService"/>
+
+            <tag name="shopware.cart.collector" priority="-200"/>
+        </service>
+
+        <service id="Packiro\Checkout\Collector\ParentCartPriceCollector">
+            <argument type="service" id="Shopware\Core\Checkout\Cart\CartPersister"/>
+
+            <tag name="shopware.cart.collector"/>
+        </service>
+
+    </services>
+</container>

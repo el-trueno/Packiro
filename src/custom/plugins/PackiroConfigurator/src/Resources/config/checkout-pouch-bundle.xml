@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Kuniva\PackiroConfigurator\Core\Checkout\PouchBundle\Cart\PouchBundleCartItemAddRoute"
+                 decorates="Shopware\Core\Checkout\Cart\SalesChannel\CartItemAddRoute"
+                 decoration-priority="-9999"
+                 public="true">
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Checkout\PouchBundle\Cart\PouchBundleCartItemAddRoute.inner"/>
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Service\AccessoryService"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Checkout\PouchBundle\Cart\PouchBundleCartProcessor">
+            <argument type="service" id="Shopware\Core\Content\Product\Cart\ProductGateway"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Service\ProLibItemOrderService"/>
+            <tag name="shopware.cart.processor" priority="4950"/>
+            <tag name="shopware.cart.collector" priority="4950"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Checkout\PouchBundle\Cart\PouchBundleLineItemFactory">
+            <tag name="shopware.cart.line_item.factory"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Checkout\PouchBundle\Discount\PouchBundleDiscountPackager"
+                 decorates="Shopware\Core\Checkout\Promotion\Cart\Discount\ScopePackager\CartScopeDiscountPackager">
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Checkout\PouchBundle\Discount\PouchBundleDiscountPackager.inner" />
+        </service>
+    </services>
+</container>

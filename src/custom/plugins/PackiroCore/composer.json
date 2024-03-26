@@ -1,0 +1,32 @@
+{
+  "name": "packiro/core",
+  "description": "Adds common functionality to the plugins",
+  "type": "shopware-platform-plugin",
+  "version": "v1.4.0",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Packiro GmbH"
+    }
+  ],
+  "require": {
+    "shopware/core": "6.4.*"
+  },
+  "extra": {
+    "shopware-plugin-class": "Packiro\\Core\\PackiroCore",
+    "label": {
+      "de-DE": "Packiro Core",
+      "en-GB": "Packiro Core"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Packiro\\Core\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Packiro\\Core\\Tests\\": "tests/"
+    }
+  }
+}

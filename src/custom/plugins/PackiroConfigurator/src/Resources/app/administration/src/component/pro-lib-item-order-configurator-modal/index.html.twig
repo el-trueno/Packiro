@@ -1,0 +1,22 @@
+<sw-modal
+        class="pc-pro-lib-item-order-configurator-modal"
+        :title="$tc('sw-order.detailBase.showProLibOrderItemConfiguratorModal')"
+        :subtitle="subtitle"
+        :closable="false"
+        variant="large"
+>
+    <pc-pro-lib-item-order
+            :cartLineItemId="cartLineItem.id"
+            :productId="cartLineItem.referenceId"
+            :customerId="customer.id"
+    />
+
+    <template #modal-footer>
+        <sw-button
+                size="small"
+                @click="onClose"
+        >
+            {{ $tc('sw-order.buttons.cancel') }}
+        </sw-button>
+    </template>
+</sw-modal>

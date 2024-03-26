@@ -1,0 +1,34 @@
+[
+    {
+        "id": "{ID:STATE_MACHINE_ARTWORK}",
+        "technicalName": "pc_artwork.state",
+        "name": "Artwork Status",
+        "initialState": {
+            "id": "{ID:STATE_MACHINE_ARTWORK_STATE_OPEN}",
+            "technicalName": "open",
+            "name": "Open"
+        },
+        "states": [
+            {
+                "id": "{ID:STATE_MACHINE_ARTWORK_STATE_OPEN}",
+                "technicalName": "open",
+                "name": "Open"
+            },
+            {
+                "id": "{ID:STATE_MACHINE_ARTWORK_STATE_IN_PROGRESS}",
+                "technicalName": "in_progress",
+                "name": "In progress"
+            },
+            {
+                "id": "{ID:STATE_MACHINE_ARTWORK_STATE_COMPLETED}",
+                "technicalName": "completed",
+                "name": "Completed"
+            },
+            {
+                "id": "{ID:STATE_MACHINE_ARTWORK_STATE_CANCELLED}",
+                "technicalName": "cancelled",
+                "name": "Cancelled"
+            }
+        ]
+    }
+]

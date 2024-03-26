@@ -1,0 +1,128 @@
+{% set namePrefix = "lineItems[#{product.id}][accessoryOptions]" %}
+
+
+{% for accessoryGroup in accessoryGroups %}
+    {% set namePrefixAccessoryGroup = "#{namePrefix}[#{accessoryGroup.id}]" %}
+
+    <hr>
+    <h3>
+        <span class="text-success">#{{ accessoryGroup.priority }}</span>
+        {{ accessoryGroup.translated.name }}<br>
+        <small>{{ accessoryGroup.type }}|{{ accessoryGroup.technicalName }}</small>
+    </h3>
+
+    {% for accessoryOption in accessoryGroup.accessoryOptions %}
+        {% set namePrefixAccessoryOption = "#{namePrefix}[#{accessoryOption.id}]" %}
+
+        <input type="hidden" name="{{ namePrefixAccessoryOption }}[type]" value="{{ accessoryGroup.type }}">
+
+        <hr>
+        <h4>
+            <span class="text-success">#{{ accessoryOption.priority }}</span>
+            {{ accessoryOption.translated.name }}<br>
+            <small>{{ accessoryOption.technicalName }}</small>
+        </h4>
+        <p>{{ accessoryOption.translated.shortDescription|raw }}</p>
+        <p class="text-muted">{{ accessoryOption.translated.helpText }}</p>
+        <pre class="small">{{ accessoryOption.internalNote }}</pre>
+
+        {% if accessoryOption.media %}
+            {% sw_thumbnails 'product-image-thumbnails' with {
+                media: accessoryOption.media,
+                sizes: {
+                    'default': '100px'
+                },
+                attributes: {
+                    'class': 'w-100 mb-3'
+                }
+            } %}
+        {% endif %}
+
+        <p class="text-danger">{{ accessoryOption.calculatedPrice.unitPrice|currency }}</p>
+
+        <input
+                type="checkbox"
+                name="{{ namePrefixAccessoryOption }}[id]"
+                value="{{ accessoryOption.id }}"
+                {% if accessoryOption.preSelected %}checked{% endif %}
+        >
+        {% if accessoryGroup.scalingStack %}
+            <p>SCALING STACK</p>
+        {% else %}
+            <input type="number" name="{{ namePrefixAccessoryOption }}[quantity]" value="1">
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+{#
+{% set namePrefix = "lineItems[#{product.id}][accessoryGroups]" %}
+
+<div>{{ dump(page.configuratorSettings) }}</div>
+<div>{{ dump(product.extensions) }}</div>
+
+{% for accessoryGroup in accessoryGroups %}
+    {% set namePrefixAccessoryGroup = "#{namePrefix}[#{accessoryGroup.id}]" %}
+    <input type="hidden" name="{{ namePrefixAccessoryGroup }}[type]" value="{{ accessoryGroup.type }}">
+
+    <hr>
+    <h3>
+        <span class="text-success">#{{ accessoryGroup.priority }}</span>
+        {{ accessoryGroup.translated.name }}<br>
+        <small>{{ accessoryGroup.type }}|{{ accessoryGroup.technicalName }}</small>
+    </h3>
+
+    {% for accessoryOption in accessoryGroup.accessoryOptions %}
+        {% set namePrefixAccessoryOption = "#{namePrefixAccessoryGroup}[accessoryOptions][#{accessoryOption.id}]" %}
+
+        <hr>
+        <h4>
+            <span class="text-success">#{{ accessoryOption.priority }}</span>
+            {{ accessoryOption.translated.name }}<br>
+            <small>{{ accessoryOption.technicalName }}</small>
+        </h4>
+        <p>{{ accessoryOption.translated.shortDescription|raw }}</p>
+        <p class="text-muted">{{ accessoryOption.translated.helpText }}</p>
+        <pre class="small">{{ accessoryOption.internalNote }}</pre>
+
+        {% if accessoryOption.media %}
+            {% sw_thumbnails 'product-image-thumbnails' with {
+                media: accessoryOption.media,
+                sizes: {
+                    'default': '100px'
+                },
+                attributes: {
+                    'class': 'w-100 mb-3'
+                }
+            } %}
+        {% endif %}
+
+        <p class="text-danger">{{ accessoryOption.calculatedPrice.unitPrice|currency }}</p>
+
+        {% if accessoryGroup.multipleSelection %}
+            <input
+                    type="checkbox"
+                    name="{{ namePrefixAccessoryOption }}[id]"
+                    value="{{ accessoryOption.id }}"
+                    {% if accessoryOption.preSelected %}checked{% endif %}
+            >
+            {% if accessoryGroup.scalingStack %}
+                <p>SCALING STACK</p>
+            {% else %}
+                <input type="number" name="{{ namePrefixAccessoryOption }}[quantity]" value="1">
+            {% endif %}
+        {% else %}
+            <input
+                    type="radio"
+                    name="{{ namePrefixAccessoryGroup }}[id]"
+                    value="{{ accessoryOption.id }}"
+                    {% if accessoryOption.preSelected %}checked{% endif %}
+            >
+            {% if accessoryGroup.scalingStack %}
+                <p>SCALING STACK</p>
+            {% else %}
+                <input type="number" name="{{ namePrefixAccessoryGroup }}[quantity]" value="1">
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+#}

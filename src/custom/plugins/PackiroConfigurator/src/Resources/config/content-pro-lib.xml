@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\ProLibGroupDefinition">
+            <tag name="shopware.entity.definition" entity="pc_pro_lib_group" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\ProLibItemDefinition">
+            <tag name="shopware.entity.definition" entity="pc_pro_lib_item" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\ProLibItemOrderDefinition">
+            <tag name="shopware.entity.definition" entity="pc_pro_lib_item_order" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\ProLibItemAccessoryOptionDefinition">
+            <tag name="shopware.entity.definition" entity="pc_pro_lib_item_accessory_option" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\ProLibItemIndexer">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="pc_pro_lib_item.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+
+            <tag name="shopware.entity_indexer" priority="9000"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\ProLibItemOrderIndexer">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="pc_pro_lib_item_order.repository"/>
+            <argument type="service" id="event_dispatcher"/>
+
+            <tag name="shopware.entity_indexer" priority="9000"/>
+        </service>
+
+        <!-- SalesChannel -->
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\SalesChannelProLibItemDefinition">
+            <tag name="shopware.sales_channel.entity.definition"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibGroupListingLoader">
+            <argument type="service" id="pc_pro_lib_group.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibGroupListingRoute" public="true">
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibGroupListingLoader" />
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibItemListingLoader">
+            <argument type="service" id="pc_pro_lib_item.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibItemListingRoute" public="true">
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibItemListingLoader" />
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibItemOrderListingLoader">
+            <argument type="service" id="pc_pro_lib_item_order.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibItemOrderListingRoute" public="true">
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Listing\ProLibItemOrderListingLoader" />
+            <argument type="service" id="event_dispatcher"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\Detail\ProLibItemDetailRoute" public="true">
+            <argument type="service" id="sales_channel.pc_pro_lib_item.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\UpsertProLibGroupRoute" public="true">
+            <argument type="service" id="pc_pro_lib_group.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\UpsertProLibItemRoute" public="true">
+            <argument type="service" id="pc_pro_lib_item.repository"/>
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Service\AccessoryService"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\UpsertProLibItemOrderRoute" public="true">
+            <argument type="service" id="pc_pro_lib_item_order.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\DeleteProLibGroupRoute" public="true">
+            <argument type="service" id="pc_pro_lib_group.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\DeleteProLibItemRoute" public="true">
+            <argument type="service" id="pc_pro_lib_item.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\CloneProLibItemRoute" public="true">
+            <argument type="service" id="pc_pro_lib_item.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\ProLib\SalesChannel\CreateProLibItemFromRoute" public="true">
+            <argument type="service" id="pc_pro_lib_item.repository"/>
+            <argument type="service" id="order_line_item.repository"/>
+        </service>
+    </services>
+</container>

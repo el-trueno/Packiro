@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\AccessoryGroupDefinition">
+            <tag name="shopware.entity.definition" entity="pc_accessory_group" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\AccessoryGroupTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="pc_accessory_group_translation" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\AccessoryGroupTagDefinition">
+            <tag name="shopware.entity.definition" entity="pc_accessory_group_tag" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\AccessoryOptionDefinition">
+            <tag name="shopware.entity.definition" entity="pc_accessory_option" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\AccessoryOptionTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="pc_accessory_option_translation" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\AccessoryOptionTagDefinition">
+            <tag name="shopware.entity.definition" entity="pc_accessory_option_tag" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\AccessoryOptionProductDefinition">
+            <tag name="shopware.entity.definition" entity="pc_accessory_option_product" />
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\SalesChannelAccessoryGroupDefinition">
+            <tag name="shopware.sales_channel.entity.definition"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\SalesChannelAccessoryOptionDefinition">
+            <tag name="shopware.sales_channel.entity.definition"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Content\Accessory\Subscriber\SalesChannelAccessorySubscriber">
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Service\AccessoryService"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+    </services>
+</container>

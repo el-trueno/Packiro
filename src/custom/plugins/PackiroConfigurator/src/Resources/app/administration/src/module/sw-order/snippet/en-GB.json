@@ -1,0 +1,14 @@
+{
+  "sw-order": {
+    "buttons": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "detailBase": {
+      "showProductConfiguratorModal": "Add configuration",
+      "showProLibConfiguratorModal": "Add from product library",
+      "showProLibOrderItemConfiguratorModal": "Edit product library artwork slots",
+      "customSize": "H/W/D (mm): "
+    }
+  }
+}

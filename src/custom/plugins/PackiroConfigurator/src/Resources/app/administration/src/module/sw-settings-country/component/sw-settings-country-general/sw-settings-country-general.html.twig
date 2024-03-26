@@ -1,0 +1,11 @@
+{% block sw_settings_country_general_content_field_tax_free %}
+    <sw-entity-many-to-many-select
+            :localMode="true"
+            :label="$tc('sw-settings-country.detail.taxFreeRules')"
+            :placeholder="$tc('sw-settings-country.detail.taxFreeRules')"
+            :disabled="!acl.can('country.editor')"
+            v-model="country.extensions.taxFreeRules">
+    </sw-entity-many-to-many-select>
+
+    {% parent %}
+{% endblock %}

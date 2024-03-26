@@ -1,0 +1,33 @@
+{
+  "name": "packiro/vat-validator",
+  "description": "Validations for VAT number",
+  "version": "v1.1.1",
+  "type": "shopware-platform-plugin",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Packiro GmbH"
+    }
+  ],
+  "require": {
+    "shopware/core": "6.4.*",
+    "packiro/core": ">=1.4.0"
+  },
+  "extra": {
+    "shopware-plugin-class": "Packiro\\VatValidator\\PackiroVatValidator",
+    "label": {
+      "de-DE": "Packiro VAT Validator",
+      "en-GB": "Packiro VAT Validator"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Packiro\\VatValidator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Packiro\\VatValidator\\Tests\\": "tests/"
+    }
+  }
+}

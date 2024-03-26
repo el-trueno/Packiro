@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        
+        <service id="Packiro\Core\DAL\FieldSerializer\EnumFieldSerializer" public="true">
+            <argument type="service" id="validator"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Shopware\Core\Framework\Util\HtmlSanitizer"/>
+        </service>
+
+        <service id="Packiro\Core\Service\UpdateExistingExtensionService" public="true"/>
+
+        <service id="Packiro\Core\Factory\Logger\StreamLoggerFactory" public="true"/>
+
+    </services>
+</container>

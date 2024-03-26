@@ -1,0 +1,65 @@
+<sw-page class="pc-pro-lib-group-list">
+    <template #search-bar>
+        <sw-search-bar
+                initial-search-type="pc_pro_lib_group"
+                :initial-search="term"
+                @search="onSearch"
+        />
+    </template>
+
+    <template slot="smart-bar-header">
+        <h2>
+            {{ $tc('pc-pro-lib-group.general.title') }}
+        </h2>
+    </template>
+
+    <template slot="smart-bar-actions">
+        <sw-button variant="primary" :routerLink="{ name: 'pc.pro.lib.group.create' }">
+            {{ $tc('pc-pro-lib-group.buttons.newButtonText') }}
+        </sw-button>
+    </template>
+
+    <template #language-switch>
+        <sw-language-switch @on-change="changeLanguage"/>
+    </template>
+
+    <template slot="content">
+        <sw-entity-listing
+                v-if="entitySearchable"
+                detailRoute="pc.pro.lib.group.detail"
+                :items="items"
+                :repository="repository"
+                :showSelection="true"
+                :columns="columns"
+                :is-loading="isLoading"
+                :criteria-limit="limit"
+                :sort-by="currentSortBy"
+                :sort-direction="sortDirection"
+                :disable-data-fetching="true"
+                @page-change="onPageChange"
+                @column-sort="onSortColumn"
+        >
+            <template #column-stateMachineState.name="{ item }">
+                <sw-label
+                        v-if="!feature.isActive('FEATURE_NEXT_7530')"
+                        :variant="getVariantFromOrderState(item)"
+                        appearance="pill"
+                >
+                    {{ item.stateMachineState.translated.name }}
+                </sw-label>
+
+                <div
+                        v-if="feature.isActive('FEATURE_NEXT_7530')"
+                        class="sw-order-list__state"
+                >
+                    <sw-color-badge
+                            :color="getVariantFromOrderState(item)"
+                            rounded
+                    />
+
+                    {{ item.stateMachineState.translated.name }}
+                </div>
+            </template>
+        </sw-entity-listing>
+    </template>
+</sw-page>

@@ -1,0 +1,50 @@
+{
+  "associations": {
+    "categories": {},
+    "options": {},
+    "properties": {},
+    "children": {
+      "associations": {
+        "configuratorSettings": {
+          "associations": {
+            "option": {
+              "associations": {
+                "group": {}
+              }
+            }
+          }
+        },
+        "accessoryOptions": {
+          "associations": {
+            "accessoryGroup": {},
+            "media": {}
+          }
+        },
+        "pcProduct": {},
+        "prices": {},
+        "properties": {},
+        "options": {
+          "associations": {
+            "group": {}
+          }
+        }
+      }
+    },
+    "configuratorSettings": {
+      "associations": {
+        "option": {
+          "associations": {
+            "group": {}
+          }
+        }
+      }
+    }
+  },
+  "filter": [
+    {
+      "type": "equals",
+      "field": "parentId",
+      "value": null
+    }
+  ]
+}

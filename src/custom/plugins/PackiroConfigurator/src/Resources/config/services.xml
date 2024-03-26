@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <imports>
+        <!-- Mockup data -->
+        <import resource="data.xml"/>
+
+        <!-- Content -->
+        <import resource="content-accessory.xml"/>
+        <import resource="content-product.xml"/>
+        <import resource="content-order.xml"/>
+        <import resource="content-order-line-item.xml"/>
+        <import resource="content-country.xml"/>
+        <import resource="content-rule.xml"/>
+        <import resource="content-pro-lib.xml"/>
+
+        <!-- Checkout -->
+        <import resource="checkout-cart.xml"/>
+        <import resource="checkout-product.xml"/>
+        <import resource="checkout-pouch-bundle.xml"/>
+        <import resource="controllers.xml"/>
+    </imports>
+
+    <services>
+        <!-- Core -->
+        <service id="packiro.configurator.logger" class="Monolog\Logger">
+            <factory service="Packiro\Core\Factory\Logger\StreamLoggerFactory" method="createLogger"/>
+            <argument key="$name">packiro_configurator</argument>
+            <argument key="$level">200</argument>
+        </service>
+
+        <!-- Services -->
+        <service id="Kuniva\PackiroConfigurator\Core\Service\AccessoryService" public="true">
+            <argument type="service" id="packiro.configurator.logger"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Price\ProductPriceCalculator"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Order\OrderConverter"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\CartPersister"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Core\Service\ProLibItemOrderService" public="true">
+            <argument type="service" id="packiro.configurator.logger"/>
+            <argument type="service" id="pc_pro_lib_item_order.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Reader\Order\OrderReader" public="true">
+            <argument type="service" id="order.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Service\ExportOrderService" public="true">
+            <argument type="service" id="Kuniva\PackiroConfigurator\Reader\Order\OrderReader"/>
+            <argument type="service" id="state_machine_history.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Reader\ProLibItemOrder\ProLibItemOrderReader">
+            <argument type="service" id="pc_pro_lib_item_order.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Writer\ProLibItemOrder\ProLibItemOrderWriter">
+            <argument type="service" id="pc_pro_lib_item_order.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\Reader\Accessory\AccessoryReader">
+            <argument type="service" id="pc_accessory_option.repository"/>
+        </service>
+
+        <service id="Kuniva\PackiroConfigurator\DAL\Selector\Product\CheapestPriceQuantitySelector"
+                 decorates="Shopware\Core\Content\Product\DataAbstractionLayer\CheapestPriceQuantitySelector"
+                 public="true"
+                 decoration-priority="10">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+        </service>
+    </services>
+</container>

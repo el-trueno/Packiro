@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.0",
+  "info": [],
+  "paths": [],
+  "components": {
+    "schemas": {
+      "ProLibItemListingResult": {
+        "allOf": [
+          {
+            "$ref": "#\/components\/schemas\/EntitySearchResult"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "currentFilters": {
+                "type": "object",
+                "description": "Contains the state of the filters. These can be used to create listing filters.",
+                "properties": {}
+              },
+              "sorting": {
+                "type": "string"
+              },
+              "elements": {
+                "type": "array",
+                "items": {
+                  "$ref": "#\/components\/schemas\/PcProLibItem"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

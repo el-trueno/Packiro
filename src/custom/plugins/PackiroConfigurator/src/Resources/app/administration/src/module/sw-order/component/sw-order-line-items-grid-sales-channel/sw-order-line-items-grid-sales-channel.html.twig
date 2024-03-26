@@ -1,0 +1,114 @@
+{% block sw_order_line_items_grid_sales_channel_actions %}
+    <pc-product-configurator-modal
+            v-if="showProductConfiguratorModal"
+            :salesChannelId="salesChannelId"
+            :cart="cart"
+            :currency="currency"
+            @on-close="showProductConfiguratorModal = false"
+    />
+
+    <pc-pro-lib-configurator-modal
+            v-if="showProLibConfiguratorModal"
+            :salesChannelId="salesChannelId"
+            :cart="cart"
+            :currency="currency"
+            @on-close="showProLibConfiguratorModal = false"
+    />
+
+    <pc-pro-lib-item-order-configurator-modal
+            v-if="showProLibOrderItemConfiguratorModal"
+            :salesChannelId="salesChannelId"
+            :cartLineItem="currentCartLineItem"
+            @on-close="showProLibOrderItemConfiguratorModal = false"
+    />
+
+    {% parent %}
+{% endblock %}
+
+{% block sw_order_line_items_grid_sales_channel_add_existing_product %}
+    <sw-button
+            :disabled="!salesChannelId"
+            class="sw-order-line-items-grid__actions-container-add-product-btn"
+            variant="ghost"
+            size="small"
+            @click="showProductConfiguratorModal = true"
+    >
+        {{ $tc('sw-order.detailBase.showProductConfiguratorModal') }}
+    </sw-button>
+{% endblock %}
+
+{% block sw_order_line_items_grid_sales_channel_create_actions_dropdown_menu %}
+    <sw-context-menu-item @click="showProLibConfiguratorModal = true">
+        {{ $tc('sw-order.detailBase.showProLibConfiguratorModal') }}
+    </sw-context-menu-item>
+
+    <sw-context-menu-item @click="onInsertExistingItem">
+        {{ $tc('sw-order.detailBase.buttonAddProduct') }}
+    </sw-context-menu-item>
+
+    {% parent %}
+{% endblock %}
+
+{% block sw_order_line_items_grid_sales_channel_grid_columns_label_link %}
+    {% parent %}
+
+    <div v-if="customSize(item)">
+        {{ customSize(item) }}
+    </div>
+
+    <sw-button
+            v-if="proLibItemOrders(item)"
+            :square="true"
+            variant="primary"
+            @click="openProLibOrderItemConfiguratorModal(item)"
+    >
+        {{ proLibItemOrders(item).length }}
+    </sw-button>
+{% endblock %}
+
+{% block sw_order_line_items_grid_sales_channel_grid_columns_unit_price %}
+    <template #column-unitPrice="{ item, isInlineEdit}">
+
+        {% block sw_order_line_items_grid_sales_channel_grid_columns_unit_price_inline_edit %}
+            <sw-number-field
+                    v-if="isInlineEdit && !itemCreatedFromProduct(item) && !isPouchBundle(item)"
+                    placeholder="0"
+                    size="small"
+                    :min="getMinItemPrice(getProductItem(item))"
+                    :value="item.priceDefinition.price"
+                    @change="checkItemPrice($event, getProductItem(item))"
+            />
+        {% endblock %}
+
+        {% block sw_order_line_items_grid_sales_channel_grid_columns_unit_price_content %}
+            <template v-else>
+                {{ getProductItem(item).price.unitPrice | currency(currency.shortName) }}
+            </template>
+        {% endblock %}
+
+    </template>
+{% endblock %}
+
+{% block sw_order_line_items_grid_sales_channel_grid_columns_quantity %}
+    <template #column-quantity="{ item, isInlineEdit }">
+
+        {% block sw_order_line_items_grid_sales_channel_grid_columns_quantity_inline_edit %}
+            <sw-number-field
+                    v-if="isInlineEdit && !isCreditItem(item) && !isPouchBundle(item)"
+                    v-model="item.quantity"
+                    number-type="int"
+                    :min="1"
+                    size="small"
+                    placeholder="0"
+            />
+        {% endblock %}
+
+        {% block sw_order_line_items_grid_sales_channel_grid_columns_quantity_content %}
+            <template v-else>
+                <span class="sw-order-line-items-grid-sales-channel__quantity">
+                    {{ getProductItem(item).quantity }}
+                </span>
+            </template>
+        {% endblock %}
+    </template>
+{% endblock %}

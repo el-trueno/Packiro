@@ -1,0 +1,21 @@
+<div class="pc-accessory-group-option-list" style="height: 480px">
+    <sw-entity-listing
+            v-if="entitySearchable"
+            detailRoute="pc.accessory.option.detail"
+            :items="items"
+            :repository="repository"
+            :showSelection="true"
+            :columns="columns"
+            :is-loading="isLoading"
+            :criteria-limit="limit"
+            :sort-by="currentSortBy"
+            :sort-direction="sortDirection"
+            :disable-data-fetching="true"
+            @page-change="onPageChange"
+            @column-sort="onSortColumn"
+    >
+        <template #preview-name="{ item }">
+            <sw-media-preview-v2 :source="item.media"/>
+        </template>
+    </sw-entity-listing>
+</div>

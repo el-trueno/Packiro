@@ -1,0 +1,216 @@
+{
+  "openapi": "3.0.0",
+  "info": [],
+  "paths": {
+    "/context/switch-cart": {
+      "post": {
+        "tags": [
+          "Cart",
+          "Context"
+        ],
+        "summary": "Assign a cart to a sales channel context",
+        "description": "Assign a cart to a sales channel context",
+        "operationId": "switchCartContext",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cartToken": {
+                    "type": "string",
+                    "description": "A token of a cart that should be assigned to a sales channel context"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The cart assigned to the sales channel context, The previous cart has a new token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "oldCartToken": {
+                      "type": "string",
+                      "description": "A new token of the previous cart assigned to the sales channel context, can be used to switch back to it."
+                    },
+                    "newCartToken": {
+                      "type": "string",
+                      "description": "A new token of the switched cart. Identical to the sales channel context token."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+
+    "/checkout/cart/{lineItemId}/accessory": {
+      "post": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Add an accessory to a pouch bundle",
+        "description": "Add an accessory to a pouch bundle",
+        "operationId": "addAccessoryToLineItem",
+        "parameters": [
+          {
+            "name": "lineItemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessoryOptionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Current cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cart"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Delete an accessory from a pouch bundle",
+        "description": "Delete an accessory from a pouch bundle",
+        "operationId": "deleteAccessoryFromLineItem",
+        "parameters": [
+          {
+            "name": "lineItemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessoryOptionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Current cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cart"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Cart"
+        ],
+        "summary": "Update an accessory in a pouch bundle",
+        "description": "Update an accessory in a pouch bundle",
+        "operationId": "updateAccessoryInLineItem",
+        "parameters": [
+          {
+            "name": "lineItemId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessoryOptionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Current cart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cart"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    }
+  }
+}

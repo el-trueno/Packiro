@@ -1,0 +1,10 @@
+{
+  "sw-property": {
+    "detail": {
+      "technicalName": "Technical name"
+    },
+    "helpText": {
+      "technicalName": "Located: entity.translated.customFields.technicalName"
+    }
+  }
+}

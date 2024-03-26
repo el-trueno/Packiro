@@ -1,0 +1,12 @@
+{
+  "sw-order": {
+    "list": {
+      "columnSplitOrder": "Split Order"
+    }
+  },
+  "packiro-checkout": {
+    "splitOrder": {
+      "cardTitle": "Split Orders"
+    }
+  }
+}

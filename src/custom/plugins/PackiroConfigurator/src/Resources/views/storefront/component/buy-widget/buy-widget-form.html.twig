@@ -1,0 +1,8 @@
+{% sw_extends '@Storefront/storefront/component/buy-widget/buy-widget-form.html.twig' %}
+
+{# Not used for testing #}
+{% block buy_widget_buy_container %}
+    {{ dump(product.extensions.accessoryGroups) }}
+
+    {{ parent() }}
+{% endblock %}

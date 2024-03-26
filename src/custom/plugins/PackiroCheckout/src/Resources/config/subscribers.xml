@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="Packiro\Checkout\Subscriber\Cart\ItemAddedToSplitCartSubscriber">
+            <argument type="service" id="Kuniva\PackiroConfigurator\Core\Service\ProLibItemOrderService"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Packiro\Checkout\Subscriber\Order\OrderWrittenSubscriber">
+            <argument type="service" id="Packiro\Checkout\Service\Order\OrderExtraFieldService"/>
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="order.repository" />
+            <argument type="service" id="Packiro\Checkout\Service\Order\OrderService" />
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="Packiro\Checkout\Subscriber\Core\BusinessEventCollectorSubscriber">
+            <argument type="service" id="Shopware\Core\Framework\Event\BusinessEventCollector"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+    </services>
+</container>

@@ -1,0 +1,148 @@
+<sw-page class="pc-pro-lib-item-detail">
+    <template slot="smart-bar-back">
+        <router-link
+                class="smart-bar__back-btn"
+                :to="{ name: 'pc.pro.lib.group.detail', params: { id: item.proLibGroupId } }"
+        >
+            <sw-icon
+                    name="regular-chevron-left"
+                    small
+            />
+        </router-link>
+    </template>
+
+    <template slot="smart-bar-header">
+        <h2>{{ nameAndVersion }}</h2>
+    </template>
+
+    <template slot="smart-bar-actions">
+        <sw-button :routerLink="{ name: 'pc.pro.lib.item.list' }">
+            {{ $tc('pc-pro-lib-item.buttons.cancelButtonText') }}
+        </sw-button>
+
+        <sw-button-process
+                :isLoading="isLoading"
+                :processSuccess="processSuccess"
+                variant="primary"
+                @process-finish="saveFinish"
+                @click="onClickSave">
+            {{ $tc('pc-pro-lib-item.buttons.saveButtonText') }}
+        </sw-button-process>
+    </template>
+
+    <template #language-switch>
+        <sw-language-switch
+                slot="language-switch"
+                :disabled="item && item.isNew()"
+                @on-change="onChangeLanguage"
+        />
+    </template>
+
+    <template slot="content">
+        <sw-card-view v-if="item">
+            <sw-card :isLoading="isLoading"
+                     :title="$tc('pc-pro-lib-item.cards.general')">
+                <sw-entity-single-select
+                        :disabled="!!item.version"
+                        entity="product"
+                        :context="searchContext"
+                        :criteria="searchCriteria"
+                        :label="$tc('pc-pro-lib-item.properties.product')"
+                        v-model="item.productId"
+                        :displayVariants="true"
+                />
+
+                <sw-entity-many-to-many-select
+                        :disabled="!!item.version"
+                        :localMode="true"
+                        v-model="item.accessoryOptions"
+                        :label="$tc('pc-pro-lib-item.properties.accessoryOptions')"
+                        :criteria="accessoryCriteria"
+                >
+                    <template #selection-label-property="{ item, index, labelProperty, valueProperty }">
+                        {{ item.accessoryGroup.translated.name }} | {{ item.translated.name }}
+                    </template>
+
+                    <template #result-label-property="{ item, index }">
+                        {{ item.accessoryGroup.translated.name }} | {{ item.translated.name }}
+                    </template>
+                </sw-entity-many-to-many-select>
+
+                <sw-textarea-field
+                        :disabled="!!item.version"
+                        :label="$tc('pc-pro-lib-item.properties.note')"
+                        v-model="item.note"
+                />
+
+                <sw-switch-field
+                        v-if="!item.version"
+                        :label="$tc('pc-pro-lib-item.properties.makeVersion')"
+                        v-model="makeVersion"
+                />
+            </sw-card>
+
+            <sw-card :isLoading="isLoading"
+                     :title="$tc('pc-pro-lib-item.cards.artwork')">
+                <sw-entity-multi-id-select
+                        :label="$tc('pc-pro-lib-item.properties.artworkAccess')"
+                        v-model="item.artworkAccess"
+                        :repository="customerRepository"
+                >
+                    <template #selection-label-property="{ item, index, labelProperty, valueProperty }">
+                        {{ item.email }}
+                    </template>
+
+                    <template #result-label-property="{ item, index }">
+                        {{ item.email }}
+                    </template>
+                </sw-entity-multi-id-select>
+
+                <sw-field
+                        :label="$tc('pc-pro-lib-item.properties.artworkId')"
+                        v-model="item.artworkId"
+                />
+
+                <sw-field
+                        :label="$tc('pc-pro-lib-item.properties.artworkState')"
+                        v-model="item.artworkState"
+                />
+
+                <sw-switch-field
+                        :label="$tc('pc-pro-lib-item.properties.packshotCreated')"
+                        v-model="item.packshotCreated"
+                />
+
+                <sw-switch-field
+                        :label="$tc('pc-pro-lib-item.properties.packshotPurchased')"
+                        v-model="item.packshotPurchased"
+                />
+
+                <sw-single-select
+                        :options="artworkStatusTypes"
+                        :label="$tc('pc-pro-lib-item.properties.artworkStatus')"
+                        v-model="item.artworkStatus"
+                        @change="onChangeStatus(item)"
+                />
+                <div class="sw-field sw-block-field sw-contextual-field sw-field--text
+                is--disabled sw-field--default">
+                    <div class="sw-field__label">
+                        <label>
+                                Expert check approved <br /><b>{{ item.expertCheckApproved|date() }}</b>
+                        </label>
+                    </div>
+                </div>
+            </sw-card>
+
+
+            <sw-card
+                    :isLoading="isLoading"
+                    :title="$tc('pc-pro-lib-item.cards.proLibSlots')"
+                    class="pc-no-padding"
+            >
+                <pc-pro-lib-item-order
+                        :proLibItemId="item.id"
+                />
+            </sw-card>
+        </sw-card-view>
+    </template>
+</sw-page>

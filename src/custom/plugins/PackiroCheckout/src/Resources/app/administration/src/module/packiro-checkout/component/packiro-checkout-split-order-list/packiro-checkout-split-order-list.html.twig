@@ -1,0 +1,19 @@
+<div v-if="orders" class="packiro-checkout-split-order-list-grid">
+    {% block packiro_checkout_split_order_list_grid %}
+        <sw-data-grid
+                v-if="entitySearchable && currentOrder.extensions.splitOrder.checkoutId"
+                :data-source="orders"
+                :columns="columns"
+                :is-loading="isLoading"
+                :disable-data-fetching="true"
+                :show-selection="false"
+                :show-actions="false"
+                @column-sort="onSortColumn"
+                @page-change="onPageChange"
+        >
+                <template #column-amountTotal="{ item }">
+                        {{ item.amountTotal | currency(item.currency.translated.shortName) }}
+                </template>
+        </sw-data-grid>
+    {% endblock %}
+</div>

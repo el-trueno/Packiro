@@ -1,0 +1,32 @@
+<div class="pc-pro-lib-group-item-list" style="height: 480px">
+    <sw-entity-listing
+            v-if="entitySearchable"
+            detailRoute="pc.pro.lib.item.detail"
+            :items="items"
+            :repository="repository"
+            :showSelection="true"
+            :columns="columns"
+            :is-loading="isLoading"
+            :criteria-limit="limit"
+            :sort-by="currentSortBy"
+            :sort-direction="sortDirection"
+            :disable-data-fetching="true"
+            @page-change="onPageChange"
+            @column-sort="onSortColumn"
+    >
+        <template #column-version="{ item }">
+            <span v-if="item.version">{{ item.version }}</span>
+            <span v-else>{{ $tc('pc-pro-lib-group.properties.draft') }}</span>
+        </template>
+
+        <template #column-product.name="{ item }">
+            <span v-if="item.product">{{ item.product.productNumber }}</span>
+        </template>
+
+        <template #more-actions="{ item }">
+            <sw-context-menu-item @click="onDuplicate(item)">
+                {{ $tc('sw-product.list.buttonDuplicate') }}
+            </sw-context-menu-item>
+        </template>
+    </sw-entity-listing>
+</div>

@@ -1,0 +1,57 @@
+{
+  "openapi": "3.0.0",
+  "info": [],
+  "paths": {
+    "/order/{orderId}/state-history": {
+      "get": {
+        "tags": [
+          "Order",
+          "StateMachineHistory"
+        ],
+        "summary": "Fetch state history of an order.",
+        "description": "Fetch state history of an order including order, order transaction and order delivery state machines.",
+        "operationId": "getOrderStateHistory",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{32}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns state history.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total": {
+                      "type": "integer"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/StateMachineHistory"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Order not found or not belong to the current user"
+          }
+        }
+      }
+    }
+  }
+}

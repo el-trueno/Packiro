@@ -1,0 +1,54 @@
+{
+  "items": [
+    {
+      "salesChannelId": "1d2524a9550f4800ad01c3e622677945",
+      "id": "afe2cb256c7c410bb97f616d9d4948de",
+      "referencedId": "afe2cb256c7c410bb97f616d9d4948de",
+      "stackable": true,
+      "removable": true,
+      "hasCustomPrice": false,
+      "customUnitPrice": 1.5,
+      "type": "pc_pouch_bundle",
+      "quantity": 500,
+      "accessoryGroups": {},
+      "accessoryOptions": {
+        "06abff9ef9e25ac8e9160dec71d27c1d": {
+          "id": "06abff9ef9e25ac8e9160dec71d27c1d",
+          "selected": true,
+          "quantity": 1,
+          "type": "pseudo-product"
+        },
+        "1c857f220c01a443266ee5acc65dd2c2": {
+          "id": "1c857f220c01a443266ee5acc65dd2c2",
+          "selected": true,
+          "quantity": 1,
+          "type": "pseudo-product"
+        },
+        "e34281aa20ccf94725d92a18696b6a7e": {
+          "id": "e34281aa20ccf94725d92a18696b6a7e",
+          "selected": true,
+          "quantity": 1,
+          "type": "pseudo-product"
+        },
+        "3fb1a487854bca1c09aa27c1a75a45a9": {
+          "id": "3fb1a487854bca1c09aa27c1a75a45a9",
+          "selected": true,
+          "quantity": "2",
+          "type": "artwork"
+        },
+        "344f62f0080acfe586cd543078757aa2": {
+          "id": "344f62f0080acfe586cd543078757aa2",
+          "selected": true,
+          "quantity": 1,
+          "type": "texture"
+        },
+        "17576762965fc638c03d21e26a1bb7c4": {
+          "id": "17576762965fc638c03d21e26a1bb7c4",
+          "selected": true,
+          "quantity": 1,
+          "type": "delivery"
+        }
+      }
+    }
+  ]
+}

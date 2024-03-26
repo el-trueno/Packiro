@@ -1,0 +1,164 @@
+[
+  {
+    "id": "{ID:SAMPLEKIT}",
+    "active": true,
+    "name": "Samplekit",
+    "description": "{LOREM_IPSUM_50}",
+    "productNumber": "samplekit",
+    "stock": 0,
+    "taxId": "{TAX_ID_STANDARD}",
+    "price": 0,
+    "visibilities": [{"salesChannelId": "{SALES_CHANNEL_ID}", "visibility": 30}]
+  },
+  {
+    "id": "{ID:PACKSHOT-TOOL}",
+    "active": true,
+    "name": "Packshot",
+    "description": "{LOREM_IPSUM_50}",
+    "productNumber": "PCKS",
+    "stock": 0,
+    "taxId": "{TAX_ID_STANDARD}",
+    "price": 1,
+    "visibilities": [{"salesChannelId": "{SALES_CHANNEL_ID}", "visibility": 30}]
+  },
+  {
+    "id": "{ID:BLOCK_POUCH}",
+    "active": true,
+    "name": "Flat Bottom Pouch",
+    "description": "{LOREM_IPSUM_50}",
+    "productNumber": "FBP",
+    "minPurchase": 500,
+    "maxPurchase": 10000,
+    "purchaseSteps": 500,
+    "stock": 0,
+    "taxId": "{TAX_ID_STANDARD}",
+    "price": 1,
+    "prices": [
+      {
+        "id": "{ID:BLOCK_POUCH_P1}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 1,
+        "quantityEnd": 500,
+        "price": "{PRICE:1.00}"
+      },
+      {
+        "id": "{ID:BLOCK_POUCH_P501}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 501,
+        "quantityEnd": 1000,
+        "price": "{PRICE:0.95}"
+      },
+      {
+        "id": "{ID:BLOCK_POUCH_P1001}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 1001,
+        "quantityEnd": 1500,
+        "price": "{PRICE:0.90}"
+      },
+      {
+        "id": "{ID:BLOCK_POUCH_P1501}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 1501,
+        "quantityEnd": 2000,
+        "price": "{PRICE:0.85}"
+      },
+      {
+        "id": "{ID:BLOCK_POUCH_P2001}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 2001,
+        "quantityEnd": 2500,
+        "price": "{PRICE:0.80}"
+      },
+      {
+        "id": "{ID:BLOCK_POUCH_P2501}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 2501,
+        "quantityEnd": null,
+        "price": "{PRICE:0.75}"
+      }
+    ],
+    "tags": [
+      {
+        "id": "{ID:TAG_SALE}",
+        "name": "sale"
+      },
+      {
+        "id": "{ID:TAG_NEW}",
+        "name": "new"
+      }
+    ],
+    "visibilities": [{"salesChannelId": "{SALES_CHANNEL_ID}", "visibility": 30}],
+    "categories": [{"id": "{ID:CATEGORY_POUCHES}"}],
+    "cover": {
+      "mediaId": "{MEDIA_FILE:product/block-pouch-1.png}"
+    }
+  },
+  {
+    "id": "{ID:FLAT_POUCH}",
+    "active": true,
+    "name": "Flat Pouch",
+    "description": "{LOREM_IPSUM_50}",
+    "productNumber": "FP",
+    "minPurchase": 500,
+    "maxPurchase": 10000,
+    "purchaseSteps": 500,
+    "stock": 0,
+    "taxId": "{TAX_ID_STANDARD}",
+    "price": 1,
+    "prices": [
+      {
+        "id": "{ID:FLAT_POUCH_P1}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 1,
+        "quantityEnd": 500,
+        "price": "{PRICE:1.00}"
+      },
+      {
+        "id": "{ID:FLAT_POUCH_P501}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 501,
+        "quantityEnd": null,
+        "price": "{PRICE:0.95}"
+      }
+    ],
+    "visibilities": [{"salesChannelId": "{SALES_CHANNEL_ID}", "visibility": 30}],
+    "categories": [{"id": "{ID:CATEGORY_POUCHES}"}],
+    "cover": {
+      "mediaId": "{MEDIA_FILE:product/flat-pouch-1.png}"
+    }
+  },
+  {
+    "id": "{ID:STAND_POUCH}",
+    "active": true,
+    "name": "Stand Up Pouch",
+    "description": "{LOREM_IPSUM_50}",
+    "productNumber": "SUP",
+    "minPurchase": 500,
+    "maxPurchase": 10000,
+    "purchaseSteps": 500,
+    "stock": 0,
+    "taxId": "{TAX_ID_STANDARD}",
+    "price": 1,
+    "prices": [
+      {
+        "id": "{ID:STAND_POUCH_P1}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 1,
+        "quantityEnd": 500,
+        "price": "{PRICE:1.00}"
+      },
+      {
+        "id": "{ID:STAND_POUCH_P501}",
+        "ruleId": "{RULE_ID}",
+        "quantityStart": 501,
+        "quantityEnd": null,
+        "price": "{PRICE:0.95}"
+      }
+    ],
+    "visibilities": [{"salesChannelId": "{SALES_CHANNEL_ID}", "visibility": 30}],
+    "categories": [{"id": "{ID:CATEGORY_POUCHES}"}],
+    "cover": {
+      "mediaId": "{MEDIA_FILE:product/stand-pouch-1.png}"
+    }
+  }
+]

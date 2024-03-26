@@ -1,0 +1,11 @@
+{% block sw_property_option_detail_name %}
+    {% parent %}
+
+    <sw-field
+            v-model="currentOption.customFields.technicalName"
+            type="text"
+            :label="$tc('sw-property.detail.technicalName')"
+            :helpText="$tc('sw-property.helpText.technicalName')"
+            :disabled="!allowEdit"
+    />
+{% endblock %}

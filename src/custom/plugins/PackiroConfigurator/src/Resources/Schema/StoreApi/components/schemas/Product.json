@@ -1,0 +1,20 @@
+{
+  "openapi": "3.0.0",
+  "info": [],
+  "paths": [],
+  "components": {
+    "schemas": {
+      "Product": {
+        "properties": {
+          "extensions": {
+            "type": "object",
+            "properties": {
+              "accessoryGroups": { "type": "array", "items": { "$ref": "#/components/schemas/PcAccessoryGroup" } },
+              "pcProduct": { "$ref": "#/components/schemas/PcProduct" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

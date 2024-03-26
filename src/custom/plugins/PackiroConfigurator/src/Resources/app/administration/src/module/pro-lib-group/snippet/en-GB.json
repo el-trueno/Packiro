@@ -1,0 +1,31 @@
+{
+  "pc-pro-lib-group": {
+    "general": {
+      "title": "Product library"
+    },
+    "buttons": {
+      "newButtonText": "New",
+      "newDraft": "New draft",
+      "saveButtonText": "Save",
+      "cancelButtonText": "Cancel"
+    },
+    "cards": {
+      "general": "General",
+      "versions": "Versions"
+    },
+    "properties": {
+      "lastOrderItemId": "Last ordered version",
+      "lastVersionItemId": "Last created version",
+      "lastItemOrderId": "Last order information",
+      "draft": "Draft",
+      "version": "Version",
+      "product": "Product",
+      "name": "Name",
+      "versionCount": "Versions",
+      "customer": "Customer",
+      "customerNumber": "Customer number",
+      "email": "Customer email"
+    },
+    "helpText": {}
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "pc-accessory-group": {
+    "general": {
+      "title": "Accessories"
+    },
+    "buttons": {
+      "newButtonText": "New",
+      "saveButtonText": "Save",
+      "cancelButtonText": "Cancel",
+      "newOption": "New Option"
+    },
+    "cards": {
+      "general": "General",
+      "options": "Options",
+      "assignment": "Assignment"
+    },
+    "properties": {
+      "activeProductLib": "Use for product library",
+      "active": "Active",
+      "priority": "Priority",
+      "name": "Name",
+      "technicalName": "Technical name",
+      "type": "Type",
+      "multipleSelection": "Multiple selection",
+      "scalingStack": "Scaling stack size"
+    }
+  }
+}
