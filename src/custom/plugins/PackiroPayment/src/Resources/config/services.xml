@@ -11,6 +11,7 @@
     <services>
         <service id="Packiro\Payment\Service\CommissionService">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator" />
         </service>
 
     </services>

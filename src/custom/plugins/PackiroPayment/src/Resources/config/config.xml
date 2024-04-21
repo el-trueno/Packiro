@@ -10,8 +10,8 @@
         </input-field>
 
         <input-field type="int">
-            <name>cacheOnDeliveryCommission</name>
-            <label>Cache on delivery commission, %</label>
+            <name>cashOnDeliveryCommission</name>
+            <label>Cash on delivery commission, %</label>
         </input-field>
 
         <input-field type="int">
