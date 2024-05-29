@@ -70,9 +70,6 @@ class CommissionService implements CommissionServiceInterface
 
                 continue;
             }
-           // $lineItem->setPrice($calculatedPrice);
-
-           // $toCalculate->add($lineItem);
         }
         $calculatedDefinition = new QuantityPriceDefinition(
             $sumCalculatedPrices ?? 0,

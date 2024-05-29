@@ -16,10 +16,10 @@ services:
       - "db_volume:/var/lib/mysql"
       - "shop_volume:/var/www/html"
       - "./src/custom/plugins/PackiroPayment:/var/www/html/custom/plugins/PackiroPayment"
-      - "./src/custom/plugins/PackiroConfigurator:/var/www/html/custom/plugins/PackiroConfigurator"
-      - "./src/custom/plugins/PackiroCore:/var/www/html/custom/plugins/PackiroCore"
-      - "./src/custom/plugins/PackiroVatValidator:/var/www/html/custom/plugins/PackiroVatValidator"
-      - "./src/custom/plugins/PackiroCheckout:/var/www/html/custom/plugins/PackiroCheckout"
+      #- "./src/custom/plugins/PackiroConfigurator:/var/www/html/custom/plugins/PackiroConfigurator"
+      #- "./src/custom/plugins/PackiroCore:/var/www/html/custom/plugins/PackiroCore"
+      #- "./src/custom/plugins/PackiroVatValidator:/var/www/html/custom/plugins/PackiroVatValidator"
+      #- "./src/custom/plugins/PackiroCheckout:/var/www/html/custom/plugins/PackiroCheckout"
     networks:
       - web
     environment:
