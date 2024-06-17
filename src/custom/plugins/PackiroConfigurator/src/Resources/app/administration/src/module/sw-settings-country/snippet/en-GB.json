@@ -1,7 +1,0 @@
-{
-    "sw-settings-country": {
-        "detail": {
-            "taxFreeRules": "TAX Free if one of this rules match"
-        }
-    }
-}

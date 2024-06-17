@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["packiro-configurator"],{cGKY:function(n,o){}},[["cGKY","runtime"]]]);
