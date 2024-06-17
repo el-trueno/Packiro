@@ -17,12 +17,10 @@ use Shopware\Core\Checkout\Cart\Tax\Struct\TaxRuleCollection;
 use Shopware\Core\Framework\Util\FloatComparator;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
-use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class CommissionService implements CommissionServiceInterface
 {
     public function __construct(
-        private readonly SystemConfigService $systemConfigService,
         private readonly QuantityPriceCalculator $calculator,
     ) {}
 
@@ -34,12 +32,16 @@ class CommissionService implements CommissionServiceInterface
         if (!$context->getCustomer()) {
             return;
         }
-        $commissionPercentKey = $this->prepareKeyForSystemConfigService($context->getCustomer()->getDefaultPaymentMethod()->getName());
-        $commissionPercent = $this->systemConfigService->get($commissionPercentKey);
+
+        $commissionPercent = $context->getPaymentMethod()->getExtension('paymentMethodExtension')?->getCommission();
+
         if (!$commissionPercent) {
             return;
         }
         $lineItems = $original->getLineItems();
+        if (count($lineItems) === 0) {
+            return;
+        }
         $commissionLineItem = new LineItem(
             Uuid::randomHex(),
             'test',
@@ -72,21 +74,15 @@ class CommissionService implements CommissionServiceInterface
             }
         }
         $calculatedDefinition = new QuantityPriceDefinition(
-            $sumCalculatedPrices ?? 0,
+            0,
             new TaxRuleCollection(),
             1);
         $calculatedPrice = new CalculatedPrice(
             0, $sumCalculatedPrices ?? 0, new CalculatedTaxCollection(), new TaxRuleCollection(), 1);
+
         $commissionLineItem->setPriceDefinition($calculatedDefinition)->setPrice($calculatedPrice);
+
         $toCalculate->add($commissionLineItem);
-    }
-
-    private function prepareKeyForSystemConfigService(string $nameOfCommission): string
-    {
-        $nameOfCommission = ucwords($nameOfCommission);
-        $nameOfCommission = str_replace(' ', '', $nameOfCommission);
-
-        return sprintf('PackiroPayment.config.%sCommission', lcfirst($nameOfCommission));
     }
 }
 

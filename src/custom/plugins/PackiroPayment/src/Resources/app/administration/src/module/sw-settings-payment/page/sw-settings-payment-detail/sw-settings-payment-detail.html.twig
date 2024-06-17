@@ -1,0 +1,17 @@
+{% block sw_settings_payment_detail_content_card %}
+    {% parent %}
+
+    <sw-card :isLoading="isLoading">
+        <template v-if="!isLoading">
+            <sw-container>
+                {% block packiro_payment_settings_payment_detail_content_field_commission %}
+                    <sw-field
+                            type="text"
+                            class="sw-settings-payment-detail__field-commission"
+                            v-model="commission"
+                            :label="$tc('sw-property.detail.commission')"
+                    />
+                {% endblock %}
+        </template>
+    </sw-card>
+{% endblock %}

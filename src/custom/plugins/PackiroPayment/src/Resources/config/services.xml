@@ -10,8 +10,13 @@
 
     <services>
         <service id="Packiro\Payment\Service\CommissionService">
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator" />
+        </service>
+        <service id="Packiro\Payment\DAL\Extension\PaymentMethod\PaymentMethodExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+        <service id="Packiro\Payment\DAL\Extension\PaymentMethod\PaymentMethodExtensionDefinition">
+            <tag name="shopware.entity.definition" entity="pc_payment_method" />
         </service>
 
     </services>
