@@ -6,6 +6,7 @@
 
     <imports>
         <import resource="processors.xml"/>
+        <import resource="rule.xml"/>
     </imports>
 
     <services>

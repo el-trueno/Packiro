@@ -1,0 +1,9 @@
+{% block sw_condition_value_content %}
+    <sw-single-select name="payment-surcharge"
+                      id="payment-surcharge"
+                      size="medium"
+                      :options="selectValues"
+                      v-model="isPaymentCommissionExists"
+                      class="field--main">
+    </sw-single-select>
+{% endblock %}
